@@ -1,0 +1,195 @@
+----------------FILE: Tree.java---------------------
+
+
+public class Tree {
+	
+	private int age;
+	private boolean disease;
+	private int daysWatered;
+	
+	public Tree(){
+		// For planting a new tree
+		age = 0;
+		disease = false;
+		daysWatered = 0;
+	}
+	
+	public Tree(int startAge, boolean startDisease, int startDaysWatered){
+		// For planting a sapling that has already aged some or adding a previously unrecorded tree
+		age = startAge;
+		disease = startDisease;
+		daysWatered = startDaysWatered;
+	}
+	
+	public int getAge(){
+		return age;
+	}
+	public int getDaysWatered(){
+		return daysWatered;
+	}
+	public boolean isDiseased(){
+		return disease;
+	}
+	public void water(){
+		daysWatered = 0;
+	}
+	public void nextDay(){
+		daysWatered++;
+	}
+	public void grow(){
+		age++;
+	}
+}
+
+------------------------FILE: FruitTree.java----------------------------------
+
+
+public class FruitTree extends Tree{
+	private int youngFruit;
+	private int ripeFruit;
+	private boolean isCollected;
+	private boolean isFlowering;
+	
+	public FruitTree(){
+		// For a new tree
+		super();
+		youngFruit = 0;
+		ripeFruit = 0;
+		isCollected = false;
+		isFlowering = false;
+	}
+	
+	public FruitTree(int age, int daysWatered, boolean startDisease){
+		// For a sapling that has grown some, but still doesn't Flower or Bear Fruit.
+		super(age, startDisease,daysWatered);
+		youngFruit = 0;
+		ripeFruit = 0;
+		isCollected = false;
+		isFlowering = false;
+	}
+	
+	public FruitTree(int age, int daysWatered, boolean startDisease, int startYoungFruit, int startRipeFruit){
+		// For a tree that blooms and bears fruit
+		super(age, startDisease, daysWatered);
+		youngFruit = startYoungFruit;
+		ripeFruit = startRipeFruit;
+		isCollected = false;
+		isFlowering = true;
+	}
+	
+	public int getYoungFruit(){
+		return youngFruit;
+	}
+	public int getRipeFruit(){
+		return ripeFruit;
+	}
+	public boolean isCollected(){
+		return isCollected;
+	}
+	public boolean isFlowering(){
+		return isFlowering;
+	}
+	
+	public void collect(){
+		ripeFruit = 0;
+		isCollected = true;
+	}
+	public void grow(){
+		super.grow();
+		if(isFlowering){
+			isCollected = false;
+			youngFruit += Math.round(10.0*Math.random());
+		}
+	}
+	public void nextDay(){
+		super.nextDay();
+		double ripen = youngFruit*0.2*Math.random();
+		ripeFruit += Math.round(ripen);
+		youngFruit -= Math.round(ripen);
+	}
+}
+
+
+-------------------------------FILE: Orange.java--------------------------------
+
+
+public class Orange extends FruitTree{
+	private String orangeSpecies;
+	
+	/*
+	 * The Constructors are the same as the Superclass,
+	 * Except they ask which species of orange grows.
+	 * Only one species can grow on one tree, so naming the species is the only necessary change.
+	 */
+	public Orange(String nameSpecies){
+		super();
+		orangeSpecies = nameSpecies;
+	}
+	public Orange(int age, int daysWatered, boolean startDisease, String nameSpecies){
+		super(age, daysWatered, startDisease);
+		orangeSpecies = nameSpecies;
+	}
+	public Orange(int age, int daysWatered, boolean startDisease, int startYoungFruit, int startRipeFruit, String nameSpecies){
+		super(age, daysWatered, startDisease);
+		orangeSpecies = nameSpecies;
+	}
+	
+	public String getSpecies(){
+		return orangeSpecies;
+	}
+}
+
+
+-----------------------------FILE: Apple.java-----------------------------
+
+
+public class Apple extends FruitTree{
+	private String appleSpecies;
+	
+	/*
+	 * The Constructors are the same as the Superclass,
+	 * Except they ask which species of apple grows.
+	 * Only one species can grow on one tree, so naming the species is the only necessary change.
+	 */
+	public Apple(String nameSpecies){
+		super();
+		appleSpecies = nameSpecies;
+	}
+	public Apple(int age, int daysWatered, boolean startDisease, String nameSpecies){
+		super(age, daysWatered, startDisease);
+		appleSpecies = nameSpecies;
+	}
+	public Apple(int age, int daysWatered, boolean startDisease, int startYoungFruit, int startRipeFruit, String nameSpecies){
+		super(age, daysWatered, startDisease);
+		appleSpecies = nameSpecies;
+	}
+	
+	public String getSpecies(){
+		return appleSpecies;
+	}
+}
+
+
+--------------------------------FILE: Kiwi.java----------------------------
+
+
+public class Kiwi extends FruitTree{
+	
+	/*
+	 * The Constructors are the same as the Superclass,
+	 * The Kiwi doesn't have unique species names. So it will return "Common Kiwi" when asked.
+	 */
+	public Kiwi(){
+		super();
+	}
+	public Kiwi(int age, int daysWatered, boolean startDisease){
+		super(age, daysWatered, startDisease);
+	}
+	public Kiwi(int age, int daysWatered, boolean startDisease, int startYoungFruit, int startRipeFruit){
+		super(age, daysWatered, startDisease);
+	}
+	
+	public String getSpecies(){
+		return "Common Kiwi";
+	}
+}
